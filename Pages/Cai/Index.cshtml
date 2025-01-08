@@ -1,0 +1,69 @@
+﻿@page 
+@model ProiectFinal.Pages.Cai.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cal[0].NumeCal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cal[0].AnulNasterii)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cal[0].Nivel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cal[0].Instructor.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cal[0].CategoriiCai)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CalD.Cai) {
+            string selectedRow = "";
+            if(item.ID == Model.CalID)
+            {
+                selectedRow = "table-succes";
+            }
+            <tr class="@selectedRow">
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeCal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnulNasterii)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nivel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Instructor.FullName)
+            </td>
+            <td>
+                    @{
+                        foreach(var categorie in item.CategoriiCai)
+                        {
+                            @categorie.Categorie.ID @categorie.Categorie.NumeCategorie <br/>
+                        }
+                    }
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

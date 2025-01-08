@@ -1,0 +1,80 @@
+﻿@page
+@model ProiectFinal.Pages.Cai.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Cal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Cal.NumeCal" class="control-label"></label>
+                <input asp-for="Cal.NumeCal" class="form-control" />
+                <span asp-validation-for="Cal.NumeCal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cal.AnulNasterii" class="control-label"></label>
+                <input asp-for="Cal.AnulNasterii" class="form-control" />
+                <span asp-validation-for="Cal.AnulNasterii" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cal.Nivel" class="control-label"></label>
+                <select asp-for="Cal.Nivel" class="form-control">
+                    @foreach (var nivel in Enum.GetValues(typeof(ProiectFinal.Models.NivelCal)))
+                    {
+                        <option value="@nivel">@nivel</option>
+                    }
+                </select>
+                <span asp-validation-for="Cal.Nivel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cal.InstructorID" class="control-label"></label>
+                <select asp-for="Cal.InstructorID" class="form-control" asp-items="ViewBag.InstructorID"></select>/>
+                <span asp-validation-for="Cal.InstructorID" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+     <div class="table">
+         <table>
+             <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AtribuireCategorieList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+
+                                    }
+                                    @:<td>
+                                  <input type="checkbox"
+                                   name="selectedCategories" 
+                                    value="@cat.CategorieID" 
+                                    @(Html.Raw(cat.Atribuire ? "checked=\"checked\"" : "")) /> 
+                                    @cat.CategorieID @:  @cat.Nume
+                                    @:</td>
+                                }
+                                @:</tr>
+                            }
+                 </table>
+                 </div>
+                 </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
