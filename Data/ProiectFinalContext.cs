@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProiectFinal.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ProiectFinal.Data
 {
-    public class ProiectFinalContext : DbContext
+    public class ProiectFinalContext : IdentityDbContext<IdentityUser>
     {
         public ProiectFinalContext (DbContextOptions<ProiectFinalContext> options)
             : base(options)
