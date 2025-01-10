@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using ProiectFinal.Areas.Identity.Data
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +30,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Categorii/Index">Categorii</a>
                         </li>
+                        <li class="nav-item">
+                            @if (User.Identity?.IsAuthenticated ?? false)
+                            {
+                                <p class="nav-link">Bun venit, @User.Identity.Name!</p>
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a class="nav-link" href="/AdminPage">Admin Dashboard</a>
+                                }
+
+                                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" method="post">
+                                    <button type="submit" class="btn btn-link text-dark">Log Out</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Log in</a>
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            }
+                        </li>
+
+
                     </ul>
                 </div>
             </div>
@@ -34,6 +61,7 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+
     </div>
 
     <footer class="border-top footer text-muted">

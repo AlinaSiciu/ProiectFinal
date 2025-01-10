@@ -1,5 +1,6 @@
 ﻿@page 
 @model ProiectFinal.Pages.Cai.IndexModel
+@attribute [Authorize(Policy = "RequireMembruRole")]
 
 @{
     ViewData["Title"] = "Index";
