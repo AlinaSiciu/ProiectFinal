@@ -1,5 +1,6 @@
 ﻿@page
 @model ProiectFinal.Pages.Categorii.IndexModel
+@attribute [Authorize(Policy = "RequireAdminRole")]
 
 @{
     ViewData["Title"] = "Index";
